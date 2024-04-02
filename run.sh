@@ -1,1 +1,1 @@
-poetry run python -m main.py
+poetry run streamlit run front/front.py      
