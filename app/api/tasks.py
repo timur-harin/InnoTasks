@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from models.task import Task, TaskCreate, TaskUpdate
-from services.task_service import get_tasks, get_task, create_task, update_task, delete_task
+from app.models.task import *
+from app.services.task_service import get_tasks, get_task, create_task, update_task, delete_task
 
 
 router = APIRouter()
 
 
-@router.get("/tasks", response_model=list[Task])
+@router.get("/tasks", response_model=list[STask])
 async def read_tasks():
     return get_tasks()
 
