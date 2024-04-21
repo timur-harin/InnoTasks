@@ -12,6 +12,13 @@ class STaskAdd(BaseModel):
     deadline: Optional[datetime] = None
 
 
+class STaskUpdate(BaseModel):
+    title: Optional[str] = None
+    completed: Optional[bool] = None
+    description: Optional[str] = None
+    deadline: Optional[datetime] = None
+
+
 class STask(STaskAdd):
     id: int
 
