@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from app.models.task import *
-from app.services.task_service import get_tasks, get_task, create_task, update_task, delete_task
+from app.services.task_service import TaskService
 
 
 router = APIRouter()
@@ -9,15 +9,6 @@ router = APIRouter()
 @router.get("/tasks", response_model=list[STask])
 async def read_tasks():
     return get_tasks()
-
-
-@router.get("/tasks/{task_id}", response_model=Task)
-async def read_task(task_id: int):
-    task = get_task(task_id)
-    if task is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Task not found")
-    return task
-
 
 @router.post("/tasks", response_model=Task)
 async def create_task(task: TaskCreate):
