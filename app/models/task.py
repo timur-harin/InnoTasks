@@ -6,7 +6,6 @@ from pydantic import BaseModel, ConfigDict
 
 class STaskAdd(BaseModel):
     title: str
-    owner_id: int
     completed: bool = False
     description: Optional[str] = None
     deadline: Optional[datetime] = None
@@ -21,5 +20,5 @@ class STaskUpdate(BaseModel):
 
 class STask(STaskAdd):
     id: int
-
+    owner_id: int
     model_config = ConfigDict(from_attributes=True)

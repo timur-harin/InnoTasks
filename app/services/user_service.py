@@ -71,7 +71,7 @@ class UserService:
                 and_(UserOrm.id == user_id, UserOrm.token == token, UserOrm.last_token_update is not None,
                      UserOrm.last_token_update >= thirty_minutes_ago))
             result = await session.execute(query)
-            task_model = result.first()
-            if not task_model:
+            user = result.first()
+            if not user:
                 return False
             return True

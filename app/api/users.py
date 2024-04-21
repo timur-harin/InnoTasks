@@ -32,7 +32,7 @@ async def auth_user(form_data: Annotated[UserBase, Depends()]) -> User:
     return user
 
 
-@router.post("/change_password", name="Change password")
+@router.put("/change_password", name="Change password")
 async def auth_user(form_data: Annotated[UserChangePassword, Depends()]) -> User:
     user = await UserService.change_password(form_data)
     if not user:
