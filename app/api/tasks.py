@@ -1,9 +1,9 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from app.models.task import *
-from app.services.task_service import TaskService
-from app.services.user_service import UserService
+from models.task import *
+from services.task_service import TaskService
+from services.user_service import UserService
 
 router = APIRouter(
     prefix="/tasks",

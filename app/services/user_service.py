@@ -3,8 +3,8 @@ import secrets
 from typing import Optional
 
 from sqlalchemy import select, and_
-from app.db import new_session, UserOrm
-from app.models.user import UserBase, User, UserChangePassword
+from db import new_session, UserOrm
+from models.user import UserBase, User, UserChangePassword
 
 
 def generate_token():

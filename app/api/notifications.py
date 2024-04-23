@@ -1,9 +1,9 @@
 import datetime
 
 from fastapi import APIRouter, HTTPException, status
-from app.models.notification import NotificationBase
-from app.services.task_service import TaskService
-from app.services.user_service import UserService
+from models.notification import NotificationBase
+from services.task_service import TaskService
+from services.user_service import UserService
 
 router = APIRouter(
     prefix="/notifications",

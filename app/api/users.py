@@ -1,8 +1,8 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from app.models.user import User, UserBase, UserChangePassword
-from app.services.user_service import UserService
+from models.user import User, UserBase, UserChangePassword
+from services.user_service import UserService
 
 router = APIRouter(
     prefix="/users",

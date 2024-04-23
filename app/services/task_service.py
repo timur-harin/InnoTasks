@@ -2,8 +2,8 @@ from datetime import datetime
 from typing import Optional
 
 from sqlalchemy import select, delete, and_
-from app.db import new_session, TaskOrm
-from app.models.task import STaskAdd, STask, STaskUpdate
+from db import new_session, TaskOrm
+from models.task import STaskAdd, STask, STaskUpdate
 
 
 class TaskService:
