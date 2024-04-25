@@ -1,1 +1,1 @@
-poetry run streamlit run front/front.py      
+docker compose up -d

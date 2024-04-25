@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED 1
 COPY . .
 
 RUN pip install poetry
-RUN poetry install
+RUN poetry install 
 
 
-CMD ["poetry", "run", "python", "app/main.py"]
+CMD ["poetry", "run", "python", "main.py"]
