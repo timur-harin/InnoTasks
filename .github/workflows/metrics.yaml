@@ -18,10 +18,6 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Change directory
-      run: |
-        cd app
-
     - name: Install dependencies
       run: |
         pip install poetry
