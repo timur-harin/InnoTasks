@@ -1,13 +1,21 @@
-from pydantic import BaseModel, EmailStr
+from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel
+
 
 class UserBase(BaseModel):
-    email: EmailStr
-
-class UserCreate(UserBase):
+    email: str
     password: str
 
-class User(UserCreate):
-    id: int
 
-class TokenData(BaseModel):
+class UserChangePassword(BaseModel):
     email: str
+    password: str
+    new_password: str
+
+
+class User(UserBase):
+    id: int
+    token: str
+    last_token_update: Optional[datetime] = None

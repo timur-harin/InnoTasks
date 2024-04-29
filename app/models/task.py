@@ -1,14 +1,24 @@
-from pydantic import BaseModel
+from datetime import datetime
+from typing import Optional
 
-class TaskBase(BaseModel):
+from pydantic import BaseModel, ConfigDict
+
+
+class STaskAdd(BaseModel):
     title: str
-    description: str = None
+    completed: bool = False
+    description: Optional[str] = None
+    deadline: Optional[datetime] = None
 
-class TaskCreate(TaskBase):
-    pass
 
-class TaskUpdate(TaskBase):
-    pass
+class STaskUpdate(BaseModel):
+    title: Optional[str] = None
+    completed: Optional[bool] = None
+    description: Optional[str] = None
+    deadline: Optional[datetime] = None
 
-class Task(TaskBase):
+
+class STask(STaskAdd):
     id: int
+    owner_id: int
+    model_config = ConfigDict(from_attributes=True)

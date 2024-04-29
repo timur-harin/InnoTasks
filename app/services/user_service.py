@@ -1,29 +1,77 @@
-from models.user import User, UserCreate
-from db import fake_users_db
+import datetime
+import secrets
+from typing import Optional
+
+from sqlalchemy import select, and_
+from db import new_session, UserOrm
+from models.user import UserBase, User, UserChangePassword
 
 
-def get_user_by_email(email: str):
-    for user in fake_users_db:
-        if user.email == email:
-            return user
-    return None
+def generate_token():
+    token = ''.join(
+        secrets.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(32))
+    return token
 
 
-def authenticate_user(email: str, password: str):
-    user = get_user_by_email(email)
-    if not user:
-        return False
-    if not password == user.password:
-        return False
-    return user
+class UserService:
 
+    @classmethod
+    async def register_user(cls, data: UserBase) -> Optional[User]:
+        async with new_session() as session:
+            query = select(UserOrm).where(UserOrm.email == data.email)
+            row = await session.execute(query)
+            if not row.first():
+                user_dict = data.model_dump()
+                user = UserOrm(**user_dict)
+                user.token = generate_token()
+                user.last_token_update = datetime.datetime.now()
+                session.add(user)
+                await session.flush()
+                await session.commit()
+                return User.model_validate(user.__dict__)
+            else:
+                return None
 
-def create_user(user: UserCreate):
-    user_dict = user.dict()
-    user_dict["id"] = len(fake_users_db) + 1
-    fake_users_db.append(User(**user_dict))
-    return user
+    @classmethod
+    async def login_user(cls, data: UserBase) -> Optional[User]:
+        async with new_session() as session:
+            query = select(UserOrm).where(and_(UserOrm.email == data.email, UserOrm.password == data.password))
+            row = await session.execute(query)
+            user = row.first()
+            if not user:
+                return None
+            else:
+                user_orm = user[0]
+                user_orm.token = generate_token()
+                user_orm.last_token_update = datetime.datetime.now()
+                await session.commit()
+                return User.model_validate(user_orm.__dict__)
 
+    @classmethod
+    async def change_password(cls, data: UserChangePassword) -> Optional[User]:
+        async with new_session() as session:
+            query = select(UserOrm).where(and_(UserOrm.email == data.email, UserOrm.password == data.password))
+            row = await session.execute(query)
+            user = row.first()
+            if not user:
+                return None
+            else:
+                user_orm = user[0]
+                user_orm.token = generate_token()
+                user_orm.last_token_update = datetime.datetime.now()
+                user_orm.password = data.new_password
+                await session.commit()
+                return User.model_validate(user_orm.__dict__)
 
-async def create_user_async(user_data: UserCreate):
-    create_user(user_data)
+    @classmethod
+    async def validate_token(cls, user_id: int, token: str) -> bool:
+        async with new_session() as session:
+            thirty_minutes_ago = datetime.datetime.now() - datetime.timedelta(minutes=30)
+            query = select(UserOrm).where(
+                and_(UserOrm.id == user_id, UserOrm.token == token, UserOrm.last_token_update is not None,
+                     UserOrm.last_token_update >= thirty_minutes_ago))
+            result = await session.execute(query)
+            user = result.first()
+            if not user:
+                return False
+            return True

@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
-from main import app
+from app.main import app
 
-client = TestClient(app)
+# client = TestClient(app)
 
 # fixme, need in memory test database
 # def test_create_task():
