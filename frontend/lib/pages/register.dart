@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/network.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -20,20 +21,42 @@ class _RegisterPageState extends State<RegisterPage> {
     return regExp.hasMatch(email);
   }
 
-  // Sign In Function
-  void register() {
+  final network = NetworkService();
+
+  // Register Function
+  void register() async {
     if (_formKey.currentState!.validate()) {
       isLoading = true;
-      setState(() {});
-      Future.delayed(const Duration(seconds: 2), () {
-        isLoading = false;
+      try {
+        await network.registerUser(
+            _emailController.text, _passwordController.text);
+
         setState(() {});
-        Navigator.pushNamed(
-          context,
-          '/login',
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            isLoading = false;
+            setState(() {});
+            Navigator.pushReplacementNamed(
+              context,
+              '/tasks',
+            );
+          },
         );
-      });
+      } catch (error) {
+        if (!mounted) return;
+        showErrorSnackBar(context, error.toString());
+      }
     }
+  }
+
+  void showErrorSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   @override
@@ -139,7 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/login');
+                            Navigator.pushReplacementNamed(context, '/login');
                           },
                           child: const Text(
                             'Already have an account? Login',

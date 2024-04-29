@@ -7,7 +7,7 @@ part 'notification.g.dart';
 @freezed
 class Notification with _$Notification {
   factory Notification({
-    required int task_id,
+    required int taskId,
     required String message,
   }) = _Notification;
 

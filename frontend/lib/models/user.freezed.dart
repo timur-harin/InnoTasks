@@ -15,64 +15,17 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 User _$UserFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'default':
-      return _User.fromJson(json);
-    case 'UserChangePassword':
-      return _UserChangePassword.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'User',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
+  return _User.fromJson(json);
 }
 
 /// @nodoc
 mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String email, String password) $default, {
-    required TResult Function(
-            String email, String password, String new_password)
-        UserChangePassword,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String email, String password)? $default, {
-    TResult? Function(String email, String password, String new_password)?
-        UserChangePassword,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String email, String password)? $default, {
-    TResult Function(String email, String password, String new_password)?
-        UserChangePassword,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_User value) $default, {
-    required TResult Function(_UserChangePassword value) UserChangePassword,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_User value)? $default, {
-    TResult? Function(_UserChangePassword value)? UserChangePassword,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_User value)? $default, {
-    TResult Function(_UserChangePassword value)? UserChangePassword,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  String get token => throw _privateConstructorUsedError;
+  DateTime? get lastTokenUpdate => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -83,7 +36,12 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String email, String password});
+  $Res call(
+      {String email,
+      String password,
+      int id,
+      String token,
+      DateTime? lastTokenUpdate});
 }
 
 /// @nodoc
@@ -101,6 +59,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? id = null,
+    Object? token = null,
+    Object? lastTokenUpdate = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -111,6 +72,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastTokenUpdate: freezed == lastTokenUpdate
+          ? _value.lastTokenUpdate
+          : lastTokenUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -122,7 +95,12 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String password});
+  $Res call(
+      {String email,
+      String password,
+      int id,
+      String token,
+      DateTime? lastTokenUpdate});
 }
 
 /// @nodoc
@@ -137,6 +115,9 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? id = null,
+    Object? token = null,
+    Object? lastTokenUpdate = freezed,
   }) {
     return _then(_$UserImpl(
       email: null == email
@@ -147,6 +128,18 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastTokenUpdate: freezed == lastTokenUpdate
+          ? _value.lastTokenUpdate
+          : lastTokenUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -154,8 +147,12 @@ class __$$UserImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UserImpl implements _User {
-  _$UserImpl({required this.email, required this.password, final String? $type})
-      : $type = $type ?? 'default';
+  const _$UserImpl(
+      {required this.email,
+      required this.password,
+      required this.id,
+      required this.token,
+      this.lastTokenUpdate});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -164,13 +161,16 @@ class _$UserImpl implements _User {
   final String email;
   @override
   final String password;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  @override
+  final int id;
+  @override
+  final String token;
+  @override
+  final DateTime? lastTokenUpdate;
 
   @override
   String toString() {
-    return 'User(email: $email, password: $password)';
+    return 'User(email: $email, password: $password, id: $id, token: $token, lastTokenUpdate: $lastTokenUpdate)';
   }
 
   @override
@@ -180,84 +180,23 @@ class _$UserImpl implements _User {
             other is _$UserImpl &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.lastTokenUpdate, lastTokenUpdate) ||
+                other.lastTokenUpdate == lastTokenUpdate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode =>
+      Object.hash(runtimeType, email, password, id, token, lastTokenUpdate);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
       __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String email, String password) $default, {
-    required TResult Function(
-            String email, String password, String new_password)
-        UserChangePassword,
-  }) {
-    return $default(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String email, String password)? $default, {
-    TResult? Function(String email, String password, String new_password)?
-        UserChangePassword,
-  }) {
-    return $default?.call(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String email, String password)? $default, {
-    TResult Function(String email, String password, String new_password)?
-        UserChangePassword,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(email, password);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_User value) $default, {
-    required TResult Function(_UserChangePassword value) UserChangePassword,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_User value)? $default, {
-    TResult? Function(_UserChangePassword value)? UserChangePassword,
-  }) {
-    return $default?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_User value)? $default, {
-    TResult Function(_UserChangePassword value)? UserChangePassword,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -268,8 +207,12 @@ class _$UserImpl implements _User {
 }
 
 abstract class _User implements User {
-  factory _User({required final String email, required final String password}) =
-      _$UserImpl;
+  const factory _User(
+      {required final String email,
+      required final String password,
+      required final int id,
+      required final String token,
+      final DateTime? lastTokenUpdate}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -278,195 +221,13 @@ abstract class _User implements User {
   @override
   String get password;
   @override
+  int get id;
+  @override
+  String get token;
+  @override
+  DateTime? get lastTokenUpdate;
+  @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UserChangePasswordImplCopyWith<$Res>
-    implements $UserCopyWith<$Res> {
-  factory _$$UserChangePasswordImplCopyWith(_$UserChangePasswordImpl value,
-          $Res Function(_$UserChangePasswordImpl) then) =
-      __$$UserChangePasswordImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String email, String password, String new_password});
-}
-
-/// @nodoc
-class __$$UserChangePasswordImplCopyWithImpl<$Res>
-    extends _$UserCopyWithImpl<$Res, _$UserChangePasswordImpl>
-    implements _$$UserChangePasswordImplCopyWith<$Res> {
-  __$$UserChangePasswordImplCopyWithImpl(_$UserChangePasswordImpl _value,
-      $Res Function(_$UserChangePasswordImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? password = null,
-    Object? new_password = null,
-  }) {
-    return _then(_$UserChangePasswordImpl(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      new_password: null == new_password
-          ? _value.new_password
-          : new_password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$UserChangePasswordImpl implements _UserChangePassword {
-  _$UserChangePasswordImpl(
-      {required this.email,
-      required this.password,
-      required this.new_password,
-      final String? $type})
-      : $type = $type ?? 'UserChangePassword';
-
-  factory _$UserChangePasswordImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserChangePasswordImplFromJson(json);
-
-  @override
-  final String email;
-  @override
-  final String password;
-  @override
-  final String new_password;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'User.UserChangePassword(email: $email, password: $password, new_password: $new_password)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UserChangePasswordImpl &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.new_password, new_password) ||
-                other.new_password == new_password));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, email, password, new_password);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UserChangePasswordImplCopyWith<_$UserChangePasswordImpl> get copyWith =>
-      __$$UserChangePasswordImplCopyWithImpl<_$UserChangePasswordImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String email, String password) $default, {
-    required TResult Function(
-            String email, String password, String new_password)
-        UserChangePassword,
-  }) {
-    return UserChangePassword(email, password, new_password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String email, String password)? $default, {
-    TResult? Function(String email, String password, String new_password)?
-        UserChangePassword,
-  }) {
-    return UserChangePassword?.call(email, password, new_password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String email, String password)? $default, {
-    TResult Function(String email, String password, String new_password)?
-        UserChangePassword,
-    required TResult orElse(),
-  }) {
-    if (UserChangePassword != null) {
-      return UserChangePassword(email, password, new_password);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_User value) $default, {
-    required TResult Function(_UserChangePassword value) UserChangePassword,
-  }) {
-    return UserChangePassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_User value)? $default, {
-    TResult? Function(_UserChangePassword value)? UserChangePassword,
-  }) {
-    return UserChangePassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_User value)? $default, {
-    TResult Function(_UserChangePassword value)? UserChangePassword,
-    required TResult orElse(),
-  }) {
-    if (UserChangePassword != null) {
-      return UserChangePassword(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UserChangePasswordImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _UserChangePassword implements User {
-  factory _UserChangePassword(
-      {required final String email,
-      required final String password,
-      required final String new_password}) = _$UserChangePasswordImpl;
-
-  factory _UserChangePassword.fromJson(Map<String, dynamic> json) =
-      _$UserChangePasswordImpl.fromJson;
-
-  @override
-  String get email;
-  @override
-  String get password;
-  String get new_password;
-  @override
-  @JsonKey(ignore: true)
-  _$$UserChangePasswordImplCopyWith<_$UserChangePasswordImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

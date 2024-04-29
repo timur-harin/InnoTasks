@@ -22,8 +22,10 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
 mixin _$Task {
   String get title => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  DateTime get deadline => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  DateTime? get deadline => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  int? get ownerId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +38,12 @@ abstract class $TaskCopyWith<$Res> {
       _$TaskCopyWithImpl<$Res, Task>;
   @useResult
   $Res call(
-      {String title, bool completed, String description, DateTime deadline});
+      {String title,
+      bool completed,
+      String? description,
+      DateTime? deadline,
+      int? id,
+      int? ownerId});
 }
 
 /// @nodoc
@@ -54,8 +61,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
   $Res call({
     Object? title = null,
     Object? completed = null,
-    Object? description = null,
-    Object? deadline = null,
+    Object? description = freezed,
+    Object? deadline = freezed,
+    Object? id = freezed,
+    Object? ownerId = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -66,14 +75,22 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
           ? _value.completed
           : completed // ignore: cast_nullable_to_non_nullable
               as bool,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      deadline: null == deadline
+              as String?,
+      deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -86,7 +103,12 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String title, bool completed, String description, DateTime deadline});
+      {String title,
+      bool completed,
+      String? description,
+      DateTime? deadline,
+      int? id,
+      int? ownerId});
 }
 
 /// @nodoc
@@ -101,8 +123,10 @@ class __$$TaskImplCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? completed = null,
-    Object? description = null,
-    Object? deadline = null,
+    Object? description = freezed,
+    Object? deadline = freezed,
+    Object? id = freezed,
+    Object? ownerId = freezed,
   }) {
     return _then(_$TaskImpl(
       title: null == title
@@ -113,14 +137,22 @@ class __$$TaskImplCopyWithImpl<$Res>
           ? _value.completed
           : completed // ignore: cast_nullable_to_non_nullable
               as bool,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      deadline: null == deadline
+              as String?,
+      deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ownerId: freezed == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -131,8 +163,10 @@ class _$TaskImpl implements _Task {
   _$TaskImpl(
       {required this.title,
       required this.completed,
-      required this.description,
-      required this.deadline});
+      this.description,
+      this.deadline,
+      this.id,
+      this.ownerId});
 
   factory _$TaskImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskImplFromJson(json);
@@ -142,13 +176,17 @@ class _$TaskImpl implements _Task {
   @override
   final bool completed;
   @override
-  final String description;
+  final String? description;
   @override
-  final DateTime deadline;
+  final DateTime? deadline;
+  @override
+  final int? id;
+  @override
+  final int? ownerId;
 
   @override
   String toString() {
-    return 'Task(title: $title, completed: $completed, description: $description, deadline: $deadline)';
+    return 'Task(title: $title, completed: $completed, description: $description, deadline: $deadline, id: $id, ownerId: $ownerId)';
   }
 
   @override
@@ -162,13 +200,15 @@ class _$TaskImpl implements _Task {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.deadline, deadline) ||
-                other.deadline == deadline));
+                other.deadline == deadline) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, completed, description, deadline);
+  int get hashCode => Object.hash(
+      runtimeType, title, completed, description, deadline, id, ownerId);
 
   @JsonKey(ignore: true)
   @override
@@ -188,8 +228,10 @@ abstract class _Task implements Task {
   factory _Task(
       {required final String title,
       required final bool completed,
-      required final String description,
-      required final DateTime deadline}) = _$TaskImpl;
+      final String? description,
+      final DateTime? deadline,
+      final int? id,
+      final int? ownerId}) = _$TaskImpl;
 
   factory _Task.fromJson(Map<String, dynamic> json) = _$TaskImpl.fromJson;
 
@@ -198,9 +240,13 @@ abstract class _Task implements Task {
   @override
   bool get completed;
   @override
-  String get description;
+  String? get description;
   @override
-  DateTime get deadline;
+  DateTime? get deadline;
+  @override
+  int? get id;
+  @override
+  int? get ownerId;
   @override
   @JsonKey(ignore: true)
   _$$TaskImplCopyWith<_$TaskImpl> get copyWith =>

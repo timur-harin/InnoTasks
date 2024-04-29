@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/tasks.dart';
+import 'package:frontend/network.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,20 +21,63 @@ class _LoginPageState extends State<LoginPage> {
     return regExp.hasMatch(email);
   }
 
+  final network = NetworkService();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    showPassword = true;
+    _emailController.text = 't@tt.ru';
+    _passwordController.text = 'tttttt';
+  }
+
   // Sign In Function
-  void login() {
+  void login() async {
     if (_formKey.currentState!.validate()) {
       isLoading = true;
-      setState(() {});
-      Future.delayed(const Duration(seconds: 2), () {
-        isLoading = false;
+      try {
+        await network.loginUser(
+            _emailController.text, _passwordController.text);
+
         setState(() {});
-        Navigator.pushNamed(
-          context,
-          '/tasks',
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            isLoading = false;
+            setState(() {});
+            Navigator.pushReplacementNamed(
+              context,
+              '/tasks',
+            );
+          },
         );
-      });
+      } catch (error) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error.toString()),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
+  }
+
+  void showErrorSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   @override
@@ -140,7 +183,8 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/register');
+                            Navigator.pushReplacementNamed(
+                                context, '/register');
                           },
                           child: const Text(
                             'New User? Register Here',

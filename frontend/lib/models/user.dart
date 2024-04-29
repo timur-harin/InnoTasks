@@ -5,19 +5,13 @@ part 'user.g.dart';
 
 @freezed
 class User with _$User {
-  factory User({
+  const factory User({
     required String email,
     required String password,
+    required int id,
+    required String token,
+    DateTime? lastTokenUpdate,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-
-  factory User.UserChangePassword({
-    required String email,
-    required String password,
-    required String new_password,
-  }) = _UserChangePassword;
-
 }
-  
-  
