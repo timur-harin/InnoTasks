@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'task.freezed.dart';
+part 'notification.freezed.dart';
+part 'notification.g.dart';
 
 
 @freezed

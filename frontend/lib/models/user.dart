@@ -1,25 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
+part 'user.g.dart';
 
 @freezed
 class User with _$User {
-  // class UserBase(BaseModel):
-    // email: str
-//     password: str
-
-
-// class UserChangePassword(BaseModel):
-//     email: str
-//     password: str
-//     new_password: str
-
-
-// class User(UserBase):
-//     id: int
-//     token: str
-//     last_token_update: Optional[datetime] = None
-
   factory User({
     required String email,
     required String password,
