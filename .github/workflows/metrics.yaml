@@ -41,9 +41,6 @@ jobs:
       working-directory: ./app
       run: |
         poetry run pytest -m integration
-
-    # - name: UI Testing
-    #   run: |
         
 
     - name: Benchmark response times
@@ -56,31 +53,26 @@ jobs:
       run: |
         poetry run pytest --cov=app --cov-report=term-missing --cov-fail-under=60
 
-    # - name: Mutation Testing
-    #   run: |
-    #     # Mutation testing (Criteria 1c.iii)
-    #     # Add mutation testing tool command here, such as MutPy
+ 
 
-    # - name: Stress Testing
-    #   run: |
-    #     # Stress testing (Criteria 1c.iii)
-    #     # Add stress testing tool command here
+    - name: Set up flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.6'
 
-    # - name: Reliability Mechanisms - Recovery Implementation
-    #   run: |
-    #     # Recovery Implementation or any other reliability mechanisms (Criteria 1c.iv)
-    #     # Add steps for reliability checks here
+    - name: Install dependencies
+      working-directory: ./frontend
+      run: |
+        flutter pub get
 
-    # - name: Exploratory Testing Effort
-    #   run: |
-    #     # Exploratory testing effort (Criteria 1c.v)
-    #     # This is typically not automated and would be documented outside the workflow
 
-    # - name: Upload coverage to Codecov
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
-    #     files: ./coverage.xml
-    #     flags: unittests
-    #     name: codecov-umbrella
+    - name: Lint
+      working-directory: ./frontend
+      run: |
+        flutter pub run lint
+    
+    - name: Analyze
+      working-directory: ./frontend
+      run: |
+        flutter pub run analyze
 
