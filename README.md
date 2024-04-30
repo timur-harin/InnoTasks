@@ -14,6 +14,10 @@ InnoTasks is a feature-rich to-do list notification application designed to enha
 
 - Responsive Design: The application features a responsive design, ensuring usability across different devices and screen sizes. The user interface is intuitive, providing a seamless experience for users.
 
+## Demo 
+
+https://github.com/timur-harin/InnoTasks/assets/88401434/cfd2feba-6681-40b8-8b69-2292902a784e
+
 ## Installation and Usage
 
 To run the InnoTasks application using Docker Compose, follow these steps:
@@ -60,3 +64,4 @@ Contributions to InnoTasks are welcome! If you find a bug or have a feature requ
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
