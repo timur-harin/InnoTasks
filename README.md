@@ -18,6 +18,28 @@ InnoTasks is a feature-rich to-do list notification application designed to enha
 
 https://github.com/timur-harin/InnoTasks/assets/88401434/cfd2feba-6681-40b8-8b69-2292902a784e
 
+## Screens 
+
+### Register page // login page 
+
+![register_page](https://github.com/timur-harin/InnoTasks/assets/88401434/670cbe66-fba6-42ef-accb-d354d59553a1)
+
+### Viewing the tasks 
+
+![view_tasks](https://github.com/timur-harin/InnoTasks/assets/88401434/fb5f3e57-5e8a-41e9-a982-9788d132c0c2)
+
+### Creating the task
+
+![create_task](https://github.com/timur-harin/InnoTasks/assets/88401434/79ede50e-e462-4397-8589-e07054bfb45e)
+
+### Updating the task
+
+![update_task](https://github.com/timur-harin/InnoTasks/assets/88401434/c47a9ce5-3bf7-4423-922d-945fe62ebc3d)
+
+### Deleting the task 
+
+![delete_task](https://github.com/timur-harin/InnoTasks/assets/88401434/0cf40f93-29a9-41e7-a6b5-a9384b5cfc85)
+
 ## Installation and Usage
 
 To run the InnoTasks application using Docker Compose, follow these steps:
