@@ -18,7 +18,8 @@ async def create_task(token: str, form_data: Annotated[STaskAdd, Depends()]) -> 
     token = split[1]
     check = await UserService.validate_token(user_id, token)
     if not check:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
     return await TaskService.add_task(form_data, user_id)
 
 
@@ -29,7 +30,8 @@ async def delete_task(task_id: int, token: str) -> bool:
     token = split[1]
     check = await UserService.validate_token(user_id, token)
     if not check:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
     return await TaskService.delete_task(user_id, task_id)
 
 
@@ -40,7 +42,8 @@ async def get_task(task_id: int, token: str) -> STask:
     token = split[1]
     check = await UserService.validate_token(user_id, token)
     if not check:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
     return await TaskService.get_task(user_id, task_id)
 
 
@@ -51,7 +54,8 @@ async def get_all_tasks(token: str) -> list[STask]:
     token = split[1]
     check = await UserService.validate_token(user_id, token)
     if not check:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
     return await TaskService.get_all_tasks(user_id)
 
 
@@ -62,5 +66,6 @@ async def update_task(task_id: int, token: str, update: Annotated[STaskUpdate, D
     token = split[1]
     check = await UserService.validate_token(user_id, token)
     if not check:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
     return await TaskService.update_task(user_id, task_id, update)

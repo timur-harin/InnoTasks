@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:frontend/models/notification.dart';
 import 'package:frontend/models/task.dart';
 import 'package:frontend/models/user.dart';
@@ -77,7 +78,9 @@ class NetworkService {
     );
 
     if (response.statusCode == 200) {
-      print('Task created successfully');
+      if (kDebugMode) {
+        print('Task created successfully');
+      }
     } else {
       throw Exception(response.body);
     }
@@ -91,7 +94,9 @@ class NetworkService {
     );
 
     if (response.statusCode == 200) {
-      print('Task deleted successfully');
+      if (kDebugMode) {
+        print('Task deleted successfully');
+      }
     } else {
       throw Exception(response.body);
     }
@@ -113,18 +118,44 @@ class NetworkService {
     }
   }
 
-  Future<Task> updateTask(int id, String title, String description,
-      DateTime deadline, bool completed) async {
+  Future<Task> updateTask(int id, String title, String? description,
+      DateTime? deadline, bool? completed) async {
     final prefs = await SharedPreferences.getInstance();
+    var arguments = '';
+    if (description != null) {
+      arguments += '&description=$description';
+    }
+    if (deadline != null) {
+      arguments += '&deadline=${deadline.toIso8601String()}';
+    }
+    if (completed != null) {
+      arguments += '&completed=$completed';
+    }
 
     final response = await http.put(
-      Uri.parse('$baseUrl/tasks/$id/${prefs.getString('token')}'),
+      Uri.parse(
+          '$baseUrl/tasks/$id/${prefs.getString('token')}?title=$title$arguments'),
       headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
       final task = Task.fromJson(jsonDecode(response.body));
       return task;
+    } else {
+      throw Exception(response.body);
+    }
+  }
+
+  Future<bool> markTaskAsDone(Task task) async {
+    final prefs = await SharedPreferences.getInstance();
+    final response = await http.put(
+      Uri.parse(
+          '$baseUrl/tasks/${task.id}/${prefs.getString('token')}?completed=${task.completed}'),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      return true;
     } else {
       throw Exception(response.body);
     }
@@ -139,7 +170,9 @@ class NetworkService {
     );
 
     if (response.statusCode == 200) {
-      final notifications = (jsonDecode(response.body) as List<Notification>);
+      final notifications = (List<Notification>.from(
+          jsonDecode(response.body).map((x) => Notification.fromJson(x))));
+
       return notifications;
     } else {
       throw Exception(response.body);

@@ -18,7 +18,8 @@ async def get_notifications(token: str) -> list[NotificationBase]:
     token = split[1]
     check = await UserService.validate_token(user_id, token)
     if not check:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="No valid token provided")
     tasks = await TaskService.get_all_overdue_tasks(datetime.datetime.now(), user_id)
     notifications = [
         NotificationBase.model_validate({"task_id": task.id}) for task in tasks]

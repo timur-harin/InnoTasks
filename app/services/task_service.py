@@ -22,7 +22,8 @@ class TaskService:
     @classmethod
     async def get_task(cls, user_id: int, task_id: int) -> Optional[STask]:
         async with new_session() as session:
-            query = select(TaskOrm).where(and_(TaskOrm.id == task_id, TaskOrm.owner_id == user_id))
+            query = select(TaskOrm).where(
+                and_(TaskOrm.id == task_id, TaskOrm.owner_id == user_id))
             result = await session.execute(query)
             task_model = result.scalar()
             if task_model:
@@ -35,7 +36,8 @@ class TaskService:
             query = select(TaskOrm).where(TaskOrm.owner_id == user_id)
             result = await session.execute(query)
             task_models = result.scalars().all()
-            task_schemas = [STask.model_validate(task_model) for task_model in task_models]
+            task_schemas = [STask.model_validate(
+                task_model) for task_model in task_models]
             return task_schemas
 
     @classmethod
@@ -46,13 +48,15 @@ class TaskService:
                      TaskOrm.completed == 0))
             result = await session.execute(query)
             task_models = result.scalars().all()
-            task_schemas = [STask.model_validate(task_model) for task_model in task_models]
+            task_schemas = [STask.model_validate(
+                task_model) for task_model in task_models]
             return task_schemas
 
     @classmethod
     async def update_task(cls, user_id: int, task_id: int, task_update: STaskUpdate) -> Optional[STask]:
         async with new_session() as session:
-            query = select(TaskOrm).where(and_(TaskOrm.id == task_id, TaskOrm.owner_id == user_id))
+            query = select(TaskOrm).where(
+                and_(TaskOrm.id == task_id, TaskOrm.owner_id == user_id))
             row = await session.execute(query)
             task = row.first()
             if not task:
@@ -72,7 +76,8 @@ class TaskService:
     @classmethod
     async def delete_task(cls, user_id: int, task_id: int) -> bool:
         async with new_session() as session:
-            query = delete(TaskOrm).where(and_(TaskOrm.id == task_id, TaskOrm.owner_id == user_id))
+            query = delete(TaskOrm).where(
+                and_(TaskOrm.id == task_id, TaskOrm.owner_id == user_id))
             await session.execute(query)
             await session.commit()
             return True

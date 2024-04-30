@@ -20,8 +20,8 @@ Notification _$NotificationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Notification {
-  int get taskId => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
+  int? get task_id => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $NotificationCopyWith<$Res> {
           Notification value, $Res Function(Notification) then) =
       _$NotificationCopyWithImpl<$Res, Notification>;
   @useResult
-  $Res call({int taskId, String message});
+  $Res call({int? task_id, String? message});
 }
 
 /// @nodoc
@@ -51,18 +51,18 @@ class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? taskId = null,
-    Object? message = null,
+    Object? task_id = freezed,
+    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
-      taskId: null == taskId
-          ? _value.taskId
-          : taskId // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
+      task_id: freezed == task_id
+          ? _value.task_id
+          : task_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -75,7 +75,7 @@ abstract class _$$NotificationImplCopyWith<$Res>
       __$$NotificationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int taskId, String message});
+  $Res call({int? task_id, String? message});
 }
 
 /// @nodoc
@@ -89,18 +89,18 @@ class __$$NotificationImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? taskId = null,
-    Object? message = null,
+    Object? task_id = freezed,
+    Object? message = freezed,
   }) {
     return _then(_$NotificationImpl(
-      taskId: null == taskId
-          ? _value.taskId
-          : taskId // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
+      task_id: freezed == task_id
+          ? _value.task_id
+          : task_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -108,19 +108,19 @@ class __$$NotificationImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$NotificationImpl implements _Notification {
-  _$NotificationImpl({required this.taskId, required this.message});
+  _$NotificationImpl({this.task_id, this.message});
 
   factory _$NotificationImpl.fromJson(Map<String, dynamic> json) =>
       _$$NotificationImplFromJson(json);
 
   @override
-  final int taskId;
+  final int? task_id;
   @override
-  final String message;
+  final String? message;
 
   @override
   String toString() {
-    return 'Notification(taskId: $taskId, message: $message)';
+    return 'Notification(task_id: $task_id, message: $message)';
   }
 
   @override
@@ -128,13 +128,13 @@ class _$NotificationImpl implements _Notification {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotificationImpl &&
-            (identical(other.taskId, taskId) || other.taskId == taskId) &&
+            (identical(other.task_id, task_id) || other.task_id == task_id) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, taskId, message);
+  int get hashCode => Object.hash(runtimeType, task_id, message);
 
   @JsonKey(ignore: true)
   @override
@@ -151,17 +151,16 @@ class _$NotificationImpl implements _Notification {
 }
 
 abstract class _Notification implements Notification {
-  factory _Notification(
-      {required final int taskId,
-      required final String message}) = _$NotificationImpl;
+  factory _Notification({final int? task_id, final String? message}) =
+      _$NotificationImpl;
 
   factory _Notification.fromJson(Map<String, dynamic> json) =
       _$NotificationImpl.fromJson;
 
   @override
-  int get taskId;
+  int? get task_id;
   @override
-  String get message;
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$$NotificationImplCopyWith<_$NotificationImpl> get copyWith =>

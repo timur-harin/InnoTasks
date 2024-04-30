@@ -13,7 +13,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool showPassword = false;
   bool isLoading = false;
-  // Email Validation
   final emailPattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   bool validateEmail(String email) {
@@ -33,9 +32,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    showPassword = true;
-    _emailController.text = 't@tt.ru';
-    _passwordController.text = 'tttttt';
   }
 
   // Sign In Function

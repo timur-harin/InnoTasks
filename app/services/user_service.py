@@ -35,7 +35,8 @@ class UserService:
     @classmethod
     async def login_user(cls, data: UserBase) -> Optional[User]:
         async with new_session() as session:
-            query = select(UserOrm).where(and_(UserOrm.email == data.email, UserOrm.password == data.password))
+            query = select(UserOrm).where(
+                and_(UserOrm.email == data.email, UserOrm.password == data.password))
             row = await session.execute(query)
             user = row.first()
             if not user:
@@ -50,7 +51,8 @@ class UserService:
     @classmethod
     async def change_password(cls, data: UserChangePassword) -> Optional[User]:
         async with new_session() as session:
-            query = select(UserOrm).where(and_(UserOrm.email == data.email, UserOrm.password == data.password))
+            query = select(UserOrm).where(
+                and_(UserOrm.email == data.email, UserOrm.password == data.password))
             row = await session.execute(query)
             user = row.first()
             if not user:
