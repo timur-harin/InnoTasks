@@ -28,7 +28,7 @@ jobs:
     - name: Static Analysis
       working-directory: ./app
       run: |
-        poetry run flake8
+        poetry run flake8 
         poetry run mypy app/
         poetry run radon cc app/ --total-average
 
