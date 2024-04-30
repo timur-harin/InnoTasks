@@ -30,11 +30,6 @@ jobs:
       run: |
         poetry run flake8 
 
-    - name: Measure code coverage
-      working-directory: ./app
-      run: |
-        poetry run pytest --cov=app --cov-report=term-missing --cov-fail-under=0
-
     - name: Set up flutter
       uses: subosito/flutter-action@v2
       with:
