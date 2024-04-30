@@ -36,11 +36,6 @@ jobs:
         poetry run pytest --benchmark-skip
         
 
-    - name: Benchmark response times
-      working-directory: ./app
-      run: |
-        poetry run pytest --benchmark-only --benchmark-save-data
-
     - name: Measure code coverage
       working-directory: ./app
       run: |
