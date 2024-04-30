@@ -30,12 +30,6 @@ jobs:
       run: |
         poetry run flake8 
 
-    - name: Run tests with pytest
-      working-directory: ./app
-      run: |
-        poetry run pytest --benchmark-skip
-        
-
     - name: Measure code coverage
       working-directory: ./app
       run: |
